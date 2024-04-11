@@ -1,19 +1,28 @@
 package org.selenium;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 
 public class SeleniumTest {
+  WebDriver driver;
 
-  @Test
-  public void firstSeleniumTest() throws InterruptedException {
+  @BeforeEach
+  public void init() {
     // Initialize Edge WebDriver
     WebDriverManager.edgedriver().setup();
 
     // Initialize Edge web browser instance
-    EdgeDriver driver = new EdgeDriver();
+    driver = new EdgeDriver();
+  }
+
+  @Test
+  public void firstSeleniumTest() {
+
 
     // maximise the browser window
     driver.manage().window().maximize();
@@ -36,11 +45,14 @@ public class SeleniumTest {
     driver.navigate().to("https://www.selenium.dev/");
 
 
-
-
     // Close window
     // driver.close();
     // Close the browser
+    driver.quit();
+  }
+
+  @AfterEach
+  public void tearDown() {
     driver.quit();
   }
 
