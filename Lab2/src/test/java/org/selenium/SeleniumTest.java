@@ -51,6 +51,13 @@ public class SeleniumTest {
     driver.quit();
   }
 
+  @Test
+  public void testStackOverflow() {
+    driver.get("https://stackoverflow.com/");
+    System.out.println(driver.getTitle());
+    Assertions.assertEquals("Stack Overflow - Where Developers Learn, Share, & Build Careers", driver.getTitle());
+  }
+
   @AfterEach
   public void tearDown() {
     driver.quit();
