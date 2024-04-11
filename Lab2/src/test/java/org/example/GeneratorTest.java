@@ -1,13 +1,14 @@
-package org.example;
-import org.junit.jupiter.api.*;
 
+package org.example;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class GeneratorTest {
-  @Test
-  public void test_Generate() {
-    int expectedRange = 20;
-    int actualNumber = Generator.generate(20);
-    org.assertj.core.api.Assertions.assertThat(actualNumber).isBetween(-expectedRange, expectedRange);
-  }
+    @Test
+    public void testGenerateRandomNumber() {
+        int randomNumber = Generator.generateRandomNumber();
+        Assertions.assertTrue(randomNumber >= -10 && randomNumber <= 10, "The random number should be between -10 and 10");
+    }
 }
