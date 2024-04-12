@@ -5,8 +5,11 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
+
+import java.time.Duration;
 
 public class SeleniumTest {
   WebDriver driver;
@@ -18,14 +21,16 @@ public class SeleniumTest {
 
     // Initialize Edge web browser instance
     driver = new EdgeDriver();
+
+    // maximise the browser window
+    driver.manage().window().maximize();
+
+    // Implicit wait - means that the WebDriver will wait for a certain amount of time before it throws a "No Such Element Exception"
+    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
   }
 
   @Test
   public void firstSeleniumTest() {
-
-
-    // maximise the browser window
-    driver.manage().window().maximize();
 
     driver.get("https://google.com/");
 
@@ -56,6 +61,31 @@ public class SeleniumTest {
     driver.get("https://stackoverflow.com/");
     System.out.println(driver.getTitle());
     Assertions.assertEquals("Stack Overflow - Where Developers Learn, Share, & Build Careers", driver.getTitle());
+  }
+
+  /**
+   * Write a test that performs the following steps:
+   *
+   * 1.Go to https://opensource-demo.orangehrmlive.com/
+   * 2.In the field 'Username' enter: Admin
+   * 3.In the 'Password' field enter: admin123
+   * 4.Click the Login button
+   * 5.Make sure the user has logged in
+   */
+  @Test
+  public void testOrangeHRM() {
+    driver.get("https://opensource-demo.orangehrmlive.com/");
+
+    By usernameBy = By.cssSelector("input[name='username']");
+    driver.findElement(usernameBy).sendKeys("Admin");
+
+    By passwordBy = By.name("password");
+    driver.findElement(passwordBy).sendKeys("admin123");
+
+    By loginBtnBy = By.cssSelector("button[type='submit']");
+    driver.findElement(loginBtnBy).click();
+
+//    Assertions.assertTrue(driver.findElement(By.id("welcome")).isDisplayed());
   }
 
   @AfterEach
